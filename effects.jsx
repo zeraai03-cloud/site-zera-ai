@@ -1,0 +1,280 @@
+/* global React */
+const { useEffect, useRef, useState, useCallback } = React;
+
+/* === Custom cursor with magnetic awareness === */
+function CustomCursor() {
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+  const stateRef = useRef({ x: 0, y: 0, rx: 0, ry: 0, dx: 0, dy: 0 });
+
+  useEffect(() => {
+    let raf;
+    const onMove = (e) => {
+      stateRef.current.dx = e.clientX;
+      stateRef.current.dy = e.clientY;
+    };
+    const onDown = () => ringRef.current?.classList.add('click');
+    const onUp = () => ringRef.current?.classList.remove('click');
+    const onOver = (e) => {
+      const t = e.target;
+      const isInteractive = t.closest('a, button, .faq-q, input, textarea, select, [data-cursor="hover"]');
+      if (isInteractive) ringRef.current?.classList.add('hover');
+      else ringRef.current?.classList.remove('hover');
+    };
+
+    const tick = () => {
+      const s = stateRef.current;
+      // dot snaps; ring eases
+      s.x += (s.dx - s.x) * 0.6;
+      s.y += (s.dy - s.y) * 0.6;
+      s.rx += (s.dx - s.rx) * 0.18;
+      s.ry += (s.dy - s.ry) * 0.18;
+      if (dotRef.current) dotRef.current.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -50%)`;
+      if (ringRef.current) ringRef.current.style.transform = `translate(${s.rx}px, ${s.ry}px) translate(-50%, -50%)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mousedown', onDown);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('mouseover', onOver);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('mouseover', onOver);
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={dotRef} className="cursor-dot" />
+      <div ref={ringRef} className="cursor-ring" />
+    </>
+  );
+}
+
+/* === Particle network background that connects to cursor === */
+function ParticleNetwork({ density = 70, intensity = 1 }) {
+  const canvasRef = useRef(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let w = 0, h = 0;
+    let particles = [];
+    let raf;
+
+    const resize = () => {
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.floor((w * h) / (16000 / (intensity || 1))) + density;
+      particles = Array.from({ length: Math.min(target, 180) }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.6 + 0.6,
+      }));
+    };
+
+    const onMove = (e) => {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+    };
+    const onLeave = () => { mouseRef.current.x = -1000; mouseRef.current.y = -1000; };
+
+    const tick = () => {
+      ctx.clearRect(0, 0, w, h);
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      const linkDist = 130;
+      const mouseDist = 180;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        // mouse pull
+        const ddx = mx - p.x, ddy = my - p.y;
+        const dd = Math.sqrt(ddx * ddx + ddy * ddy);
+        if (dd < mouseDist) {
+          const f = (1 - dd / mouseDist) * 0.4;
+          p.x += (ddx / dd) * f;
+          p.y += (ddy / dd) * f;
+        }
+
+        ctx.fillStyle = `rgba(79, 227, 255, ${0.55})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // link to others
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = q.x - p.x, dy = q.y - p.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < linkDist) {
+            const a = (1 - d / linkDist) * 0.35;
+            ctx.strokeStyle = `rgba(79, 227, 255, ${a})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+        // link to mouse
+        if (dd < mouseDist) {
+          const a = (1 - dd / mouseDist) * 0.6;
+          ctx.strokeStyle = `rgba(92, 255, 209, ${a})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mx, my);
+          ctx.stroke();
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    resize();
+    tick();
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseleave', onLeave);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseleave', onLeave);
+    };
+  }, [density, intensity]);
+
+  return <canvas ref={canvasRef} />;
+}
+
+/* === Magnetic wrapper === */
+function Magnetic({ children, strength = 0.4, className = '' }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf;
+    const reset = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = 'translate3d(0,0,0)';
+      });
+    };
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = (e.clientX - cx) * strength;
+      const dy = (e.clientY - cy) * strength;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+      });
+    };
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', reset);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', reset);
+      cancelAnimationFrame(raf);
+    };
+  }, [strength]);
+  return <span ref={ref} className={className} style={{ display: 'inline-block', transition: 'transform .25s cubic-bezier(.2,.8,.2,1)' }}>{children}</span>;
+}
+
+/* === Tilt + cursor-spotlight card === */
+function TiltCard({ children, className = '', max = 6, ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rx = (0.5 - py) * max;
+      const ry = (px - 0.5) * max;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+        el.style.setProperty('--mx', `${px * 100}%`);
+        el.style.setProperty('--my', `${py * 100}%`);
+      });
+    };
+    const reset = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = 'perspective(900px) rotateX(0) rotateY(0)';
+      });
+    };
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', reset);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', reset);
+      cancelAnimationFrame(raf);
+    };
+  }, [max]);
+  return <div ref={ref} className={className} {...rest}>{children}</div>;
+}
+
+/* === Spotlight (sets --mx/--my on element) === */
+function Spotlight({ children, className = '', as: Tag = 'div', ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
+      el.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+    };
+    el.addEventListener('mousemove', onMove);
+    return () => el.removeEventListener('mousemove', onMove);
+  }, []);
+  return <Tag ref={ref} className={className} {...rest}>{children}</Tag>;
+}
+
+/* === Reveal on scroll === */
+function Reveal({ children, className = '', delay = 0, as: Tag = 'div', ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          el.classList.add('in');
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <Tag ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }} {...rest}>
+      {children}
+    </Tag>
+  );
+}
+
+Object.assign(window, { CustomCursor, ParticleNetwork, Magnetic, TiltCard, Spotlight, Reveal });
