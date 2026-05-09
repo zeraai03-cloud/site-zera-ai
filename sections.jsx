@@ -65,7 +65,7 @@ function Nav({ logo }) {
         {links.map(([label, href]) => (
           <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>
         ))}
-        <a href="https://zera-admin-iota.vercel.app/" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>Painel</a>
+        <a href="https://admin.zeraai.com.br/login" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>Painel</a>
         <a href="#contato" className="nav-cta" onClick={() => setOpen(false)}>Solicitar orçamento</a>
       </div>
     </nav>
