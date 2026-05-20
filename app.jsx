@@ -81,6 +81,7 @@ function App() {
         <Nav logo={logo}/>
         <Hero/>
         <Services/>
+        <Products/>
         <About/>
         <Tech/>
         <Cases/>

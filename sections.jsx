@@ -14,6 +14,10 @@ const Ico = {
   zap: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="14" height="14"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>),
   plus: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>),
   burger: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" width="20" height="20"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>),
+  chart: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 6-6"/></svg>),
+  church: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M12 2v4"/><path d="M10 4h4"/><path d="M12 6v4"/><path d="M6 10l6-2 6 2"/><path d="M6 10v10h12V10"/><path d="M10 20v-4a2 2 0 1 1 4 0v4"/></svg>),
+  scissors: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>),
+  extLink: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="14" height="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>),
 };
 
 /* ─── Stylized Z mark for hero core ─── */
@@ -49,6 +53,7 @@ function Nav({ logo }) {
 
   const links = [
     ['Serviços', '#servicos'],
+    ['Produtos', '#produtos'],
     ['Sobre', '#sobre'],
     ['Tecnologias', '#tech'],
     ['Cases', '#cases'],
@@ -202,6 +207,74 @@ function Services() {
                 <ul className="feats">
                   {it.feats.map(f => <li key={f}>{f}</li>)}
                 </ul>
+              </TiltCard>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── PRODUTOS ─── */
+function Products() {
+  const products = [
+    {
+      icon: Ico.chart,
+      name: 'Prospera',
+      tagline: 'Controle financeiro inteligente',
+      desc: 'Sistema completo de gestão financeira com dashboards, controle de receitas e despesas, relatórios automáticos e visão clara do fluxo de caixa da sua empresa.',
+      feats: ['Dashboard financeiro', 'Controle de receitas e despesas', 'Relatórios automáticos'],
+      url: 'https://www.sistemaprospera.com.br',
+      accent: '#5cffd1',
+    },
+    {
+      icon: Ico.church,
+      name: 'Ekklesia',
+      tagline: 'Gestão para igrejas e ministérios',
+      desc: 'Plataforma de gestão eclesiástica com controle de membros, células, eventos, chamados de suporte e comunicação integrada para sua comunidade.',
+      feats: ['Gestão de membros e células', 'Controle de eventos', 'Sistema de chamados'],
+      url: 'https://www.ekklesiaapp.com.br',
+      accent: '#7a5af8',
+    },
+    {
+      icon: Ico.scissors,
+      name: 'BarberOS',
+      tagline: 'Sistema operacional para barbearias',
+      desc: 'Gestão completa para barbearias com agendamento online, controle de caixa, comissões, fila de espera inteligente e relatórios de desempenho.',
+      feats: ['Agendamento online', 'Controle de caixa e comissões', 'Fila de espera inteligente'],
+      url: 'https://www.sistemabarberos.com.br',
+      accent: '#ff6ad5',
+    },
+  ];
+
+  return (
+    <section id="produtos" data-screen-label="02b Produtos">
+      <div className="container">
+        <Reveal><span className="eyebrow"><span className="dot"/>Produtos</span></Reveal>
+        <Reveal delay={100}><h2 className="h-section">Soluções prontas que já <span className="accent">rodam em produção</span>.</h2></Reveal>
+        <Reveal delay={200}><p className="section-lead">Sistemas desenvolvidos pela Zera AI, validados no mercado e prontos para transformar a operação do seu negócio.</p></Reveal>
+
+        <div className="products-grid">
+          {products.map((p, i) => (
+            <Reveal key={p.name} delay={i * 140}>
+              <TiltCard className="product-card" max={4}>
+                <div className="product-header">
+                  <div className="icon" style={{ borderColor: `${p.accent}40`, background: `${p.accent}18` }}>
+                    <span style={{ color: p.accent }}>{p.icon}</span>
+                  </div>
+                  <div>
+                    <h3>{p.name}</h3>
+                    <span className="product-tagline">{p.tagline}</span>
+                  </div>
+                </div>
+                <p>{p.desc}</p>
+                <ul className="feats">
+                  {p.feats.map(f => <li key={f}>{f}</li>)}
+                </ul>
+                <a href={p.url} target="_blank" rel="noopener noreferrer" className="product-link" style={{ color: p.accent }}>
+                  Conhecer {p.name} {Ico.extLink}
+                </a>
               </TiltCard>
             </Reveal>
           ))}
@@ -607,4 +680,4 @@ function Footer({ logo }) {
   );
 }
 
-Object.assign(window, { Nav, Hero, Services, About, Tech, Cases, FAQ, Contact, Footer, Ico });
+Object.assign(window, { Nav, Hero, Services, Products, About, Tech, Cases, FAQ, Contact, Footer, Ico });
