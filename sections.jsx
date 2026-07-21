@@ -18,6 +18,7 @@ const Ico = {
   church: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M12 2v4"/><path d="M10 4h4"/><path d="M12 6v4"/><path d="M6 10l6-2 6 2"/><path d="M6 10v10h12V10"/><path d="M10 20v-4a2 2 0 1 1 4 0v4"/></svg>),
   scissors: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>),
   extLink: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="14" height="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>),
+  globe: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>),
 };
 
 /* ─── Stylized Z mark for hero core ─── */
@@ -56,7 +57,7 @@ function Nav({ logo }) {
     ['Produtos', '#produtos'],
     ['Sobre', '#sobre'],
     ['Tecnologias', '#tech'],
-    ['Cases', '#cases'],
+    ['Setores', '#setores'],
     ['FAQ', '#faq'],
   ];
 
@@ -125,9 +126,9 @@ function Hero() {
           </Reveal>
           <Reveal delay={480}>
             <div className="hero-meta">
-              <div className="stat"><span className="num">+40</span><span className="lbl">Automações entregues</span></div>
-              <div className="stat"><span className="num">24/7</span><span className="lbl">Monitoramento ativo</span></div>
-              <div className="stat"><span className="num">~6×</span><span className="lbl">Aceleração média</span></div>
+              <div className="stat"><span className="num">7+</span><span className="lbl">Setores atendidos</span></div>
+              <div className="stat"><span className="num">3</span><span className="lbl">Produtos em produção</span></div>
+              <div className="stat"><span className="num">&lt;24h</span><span className="lbl">Tempo de resposta</span></div>
             </div>
           </Reveal>
         </div>
@@ -182,6 +183,13 @@ function Services() {
     },
     {
       n: '03',
+      icon: Ico.globe,
+      title: 'Sites institucionais',
+      desc: 'Presença digital profissional para escritórios e empresas de serviço — sites rápidos, modernos e pensados para gerar contato e credibilidade.',
+      feats: ['Design sob medida', 'SEO e performance', 'Integração com WhatsApp'],
+    },
+    {
+      n: '04',
       icon: Ico.shield,
       title: 'Suporte técnico',
       desc: 'Acompanhamento proativo da sua infraestrutura digital, com SLA, observabilidade e correção rápida de incidentes.',
@@ -194,13 +202,13 @@ function Services() {
       <div className="container">
         <Reveal><span className="eyebrow"><span className="dot"/>Serviços</span></Reveal>
         <Reveal delay={100}><h2 className="h-section">Tudo que sua operação precisa para <span className="accent">rodar sozinha</span>.</h2></Reveal>
-        <Reveal delay={200}><p className="section-lead">Três frentes que combinam para reduzir custo operacional e liberar seu time para o que realmente move o negócio.</p></Reveal>
+        <Reveal delay={200}><p className="section-lead">Quatro frentes que combinam para reduzir custo operacional e liberar seu time para o que realmente move o negócio.</p></Reveal>
 
         <div className="services-grid">
           {items.map((it, i) => (
             <Reveal key={it.n} delay={i * 120}>
               <TiltCard className="service-card" max={4}>
-                <span className="num">{it.n} / 03</span>
+                <span className="num">{it.n} / 04</span>
                 <div className="icon">{it.icon}</div>
                 <h3>{it.title}</h3>
                 <p>{it.desc}</p>
@@ -217,6 +225,49 @@ function Services() {
 }
 
 /* ─── PRODUTOS ─── */
+function ProductMock({ accent, variant, url }) {
+  const host = url.replace(/^https?:\/\/(www\.)?/, '');
+  return (
+    <div className="product-mock" style={{ '--pa': accent }}>
+      <div className="mock-bar">
+        <span className="mock-dot"/><span className="mock-dot"/><span className="mock-dot"/>
+        <span className="mock-url">{host}</span>
+      </div>
+      <div className="mock-body">
+        <div className="mock-side">
+          <span/><span/><span/><span/>
+        </div>
+        <div className="mock-main">
+          {variant === 'finance' && (
+            <>
+              <div className="mock-cards"><span/><span/><span/></div>
+              <div className="mock-chart">
+                <i style={{ height: '38%' }}/><i style={{ height: '62%' }}/><i style={{ height: '46%' }}/>
+                <i style={{ height: '80%' }}/><i style={{ height: '58%' }}/><i style={{ height: '92%' }}/>
+                <i style={{ height: '70%' }}/>
+              </div>
+            </>
+          )}
+          {variant === 'members' && (
+            <div className="mock-list">
+              {[72, 54, 64, 48, 68].map((w, i) => (
+                <div className="mock-row" key={i}><span className="ava"/><span className="ln" style={{ width: `${w}%` }}/></div>
+              ))}
+            </div>
+          )}
+          {variant === 'schedule' && (
+            <div className="mock-slots">
+              {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+                <span key={i} className={i === 1 || i === 4 || i === 6 ? 'busy' : ''}/>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Products() {
   const products = [
     {
@@ -227,6 +278,7 @@ function Products() {
       feats: ['Dashboard financeiro', 'Controle de receitas e despesas', 'Relatórios automáticos'],
       url: 'https://www.sistemaprospera.com.br',
       accent: '#5cffd1',
+      mock: 'finance',
     },
     {
       icon: Ico.church,
@@ -236,6 +288,7 @@ function Products() {
       feats: ['Gestão de membros e células', 'Controle de eventos', 'Sistema de chamados'],
       url: 'https://www.ekklesiaapp.com.br',
       accent: '#7a5af8',
+      mock: 'members',
     },
     {
       icon: Ico.scissors,
@@ -245,6 +298,7 @@ function Products() {
       feats: ['Agendamento online', 'Controle de caixa e comissões', 'Fila de espera inteligente'],
       url: 'https://www.sistemabarberos.com.br',
       accent: '#ff6ad5',
+      mock: 'schedule',
     },
   ];
 
@@ -259,6 +313,7 @@ function Products() {
           {products.map((p, i) => (
             <Reveal key={p.name} delay={i * 140}>
               <TiltCard className="product-card" max={4}>
+                <ProductMock accent={p.accent} variant={p.mock} url={p.url}/>
                 <div className="product-header">
                   <div className="icon" style={{ borderColor: `${p.accent}40`, background: `${p.accent}18` }}>
                     <span style={{ color: p.accent }}>{p.icon}</span>
@@ -310,9 +365,9 @@ function About() {
           <Reveal delay={200}>
             <div className="about-stats">
               <div className="stat-tile"><div className="num">100%</div><div className="lbl">Projetos sob medida</div></div>
-              <div className="stat-tile"><div className="num">3 sem.</div><div className="lbl">MVP médio em produção</div></div>
-              <div className="stat-tile"><div className="num">12+</div><div className="lbl">Integrações nativas</div></div>
-              <div className="stat-tile"><div className="num">99,9%</div><div className="lbl">Uptime médio</div></div>
+              <div className="stat-tile"><div className="num">2–4 sem.</div><div className="lbl">Da ideia à produção</div></div>
+              <div className="stat-tile"><div className="num">3</div><div className="lbl">Produtos SaaS próprios</div></div>
+              <div className="stat-tile"><div className="num">24/7</div><div className="lbl">Suporte e monitoramento</div></div>
             </div>
           </Reveal>
         </div>
@@ -365,67 +420,97 @@ function Tech() {
   );
 }
 
-/* ─── CASES ─── */
-function Cases() {
-  const cases = [
+/* ─── SETORES ─── */
+function Sectors() {
+  const sectors = [
     {
       span: 'span-3',
-      tag: 'Automação · Atendimento',
-      title: 'Atendimento 24/7 para varejista de moda',
-      desc: 'Agente conversacional integrado ao WhatsApp, com qualificação de leads e handoff inteligente para o time humano.',
-      metrics: [['78%', 'Atendimentos automatizados'], ['3.2×', 'Conversão de leads']],
+      tag: 'Contabilidade · Operação completa',
+      title: 'Escritórios de contabilidade',
+      desc: 'Operação digital ponta a ponta: automação de atendimento, site institucional e sistema próprio com CRM para organizar clientes, tarefas e as rotinas internas do escritório.',
+      chips: ['Automação de atendimento', 'Site institucional', 'Sistema + CRM'],
+      status: 'Entregue',
       visual: 'scan',
     },
     {
       span: 'span-3',
-      tag: 'Sistema · Logística',
-      title: 'Painel de roteirização para transportadora',
-      desc: 'Plataforma web com otimização de rotas baseada em IA, integrada ao ERP e ao app dos motoristas.',
-      metrics: [['−32%', 'Custo de combustível'], ['12 dias', 'MVP em produção']],
+      tag: 'Imobiliário · Operação completa',
+      title: 'Imobiliárias e corretores',
+      desc: 'Do primeiro contato ao fechamento: automação de atendimento, site com vitrine de imóveis e sistema de gestão para captação, funil de clientes e acompanhamento de negócios.',
+      chips: ['Automação de atendimento', 'Site + vitrine', 'Sistema de gestão'],
+      status: 'Entregue',
       visual: 'scan',
     },
     {
       span: 'span-2',
-      tag: 'IA · Backoffice',
-      title: 'Leitura automática de notas',
-      desc: 'OCR + LLM para classificar e arquivar notas fiscais.',
-      metrics: [['94%', 'Acurácia']],
+      tag: 'Advocacia · IA + Sistema',
+      title: 'Escritórios de advocacia',
+      desc: 'Agente de IA para triagem e atendimento de clientes no WhatsApp, com sistema sob medida em desenvolvimento para a gestão do escritório.',
+      chips: ['Agente de IA', 'Sistema sob medida'],
+      status: 'Em expansão',
     },
     {
       span: 'span-2',
-      tag: 'Suporte · Infra',
-      title: 'Monitoramento contínuo',
-      desc: 'Observabilidade ponta-a-ponta com alertas inteligentes e correção proativa.',
-      metrics: [['99,9%', 'Uptime']],
+      tag: 'Campanhas políticas · Plataforma',
+      title: 'Campanhas e mobilização',
+      desc: 'Plataforma de gestão de campanha com atendimento por IA no WhatsApp, rede de indicações em vários níveis, análise de sentimento e painéis de acompanhamento em tempo real.',
+      chips: ['IA no WhatsApp', 'Rede de indicações', 'Análise de sentimento'],
+      status: 'Em desenvolvimento',
     },
     {
       span: 'span-2',
-      tag: 'Integração · Vendas',
-      title: 'CRM conectado ao WhatsApp',
-      desc: 'Pipeline automatizado com enriquecimento de dados em tempo real.',
-      metrics: [['+47%', 'Produtividade']],
+      tag: 'Pet shop · Sistema de gestão',
+      title: 'Pet shops e clínicas',
+      desc: 'Sistema de gestão para pet shops: agendamento de banho e tosa, cadastro de clientes e pets, controle de vendas e histórico de atendimentos.',
+      chips: ['Agendamento', 'Cadastro de pets', 'Controle de vendas'],
+      status: 'Em breve',
+    },
+    {
+      span: 'span-3',
+      tag: 'Marketing digital · Site + Sistemas',
+      title: 'Agências de tráfego pago',
+      desc: 'Site de alta performance entregue para agência de marketing — e sistemas sob medida quando a operação precisa de mais do que uma página.',
+      chips: ['Site institucional', 'Sistemas sob medida'],
+      status: 'Entregue',
+    },
+    {
+      span: 'span-3',
+      tag: 'Seu segmento',
+      title: 'Não achou o seu ramo?',
+      desc: 'A gente adapta automação, site e sistema para a realidade da sua empresa — seja qual for o setor. Conta o seu desafio que a gente desenha a solução.',
+      chips: ['Falar com a gente'],
+      href: '#contato',
     },
   ];
 
   return (
-    <section id="cases" data-screen-label="05 Cases">
+    <section id="setores" data-screen-label="05 Setores">
       <div className="container">
-        <Reveal><span className="eyebrow"><span className="dot"/>Cases</span></Reveal>
-        <Reveal delay={80}><h2 className="h-section">Resultados que falam <span className="accent">por números</span>.</h2></Reveal>
-        <Reveal delay={160}><p className="section-lead">Uma seleção de projetos que transformaram a operação dos nossos clientes.</p></Reveal>
+        <Reveal><span className="eyebrow"><span className="dot"/>Setores</span></Reveal>
+        <Reveal delay={80}><h2 className="h-section">A gente já fala a língua <span className="accent">do seu ramo</span>.</h2></Reveal>
+        <Reveal delay={160}><p className="section-lead">Ramos em que já entregamos automação, sites e sistemas sob medida — cada um com a solução que a operação pedia.</p></Reveal>
 
         <div className="cases-grid">
-          {cases.map((c, i) => (
-            <Reveal key={i} delay={i * 100}>
-              <Spotlight className={`case-card ${c.span}`}>
+          {sectors.map((c, i) => (
+            <Reveal key={i} delay={i * 100} className={c.span}>
+              <Spotlight className="case-card">
                 {c.visual && <div className={`case-visual ${c.visual}`}/>}
                 <span className="tag">{c.tag}</span>
                 <h4>{c.title}</h4>
                 <p>{c.desc}</p>
-                <div className="metric-row">
-                  {c.metrics.map(([v, l]) => (
-                    <div className="metric" key={l}><div className="v">{v}</div><div className="l">{l}</div></div>
-                  ))}
+                <div className="metric-row sector-footer">
+                  <div className="sector-chips">
+                    {c.chips.map(ch => (
+                      c.href
+                        ? <a key={ch} href={c.href} className="sector-chip link">{ch} {Ico.arrow}</a>
+                        : <span key={ch} className="sector-chip">{ch}</span>
+                    ))}
+                  </div>
+                  {c.status && (
+                    <span className={`sector-status ${['Entregue', 'Em produção'].includes(c.status) ? '' : 'dev'}`}>
+                      <span className="dot"/>{c.status}
+                    </span>
+                  )}
                 </div>
               </Spotlight>
             </Reveal>
@@ -507,6 +592,7 @@ function Contact() {
   const serviceLabel = {
     auto: 'Automação com IA',
     sys: 'Sistema personalizado',
+    site: 'Site institucional',
     sup: 'Suporte técnico',
     other: 'Não tenho certeza',
   };
@@ -621,6 +707,7 @@ function Contact() {
                         <option value="">Selecione...</option>
                         <option value="auto">Automação com IA</option>
                         <option value="sys">Sistema personalizado</option>
+                        <option value="site">Site institucional</option>
                         <option value="sup">Suporte técnico</option>
                         <option value="other">Não tenho certeza</option>
                       </select>
@@ -672,7 +759,7 @@ function Footer({ logo }) {
         <div className="copy">© {new Date().getFullYear()} Zera AI Solution's — Todos os direitos reservados.</div>
         <div className="links">
           <a href="#servicos">Serviços</a>
-          <a href="#cases">Cases</a>
+          <a href="#setores">Setores</a>
           <a href="#contato">Contato</a>
         </div>
       </div>
@@ -680,4 +767,4 @@ function Footer({ logo }) {
   );
 }
 
-Object.assign(window, { Nav, Hero, Services, Products, About, Tech, Cases, FAQ, Contact, Footer, Ico });
+Object.assign(window, { Nav, Hero, Services, Products, About, Tech, Sectors, FAQ, Contact, Footer, Ico });

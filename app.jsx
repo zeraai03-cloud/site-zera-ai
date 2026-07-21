@@ -84,7 +84,7 @@ function App() {
         <Products/>
         <About/>
         <Tech/>
-        <Cases/>
+        <Sectors/>
         <FAQ/>
         <Contact/>
         <Footer logo={logo}/>
