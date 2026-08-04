@@ -87,7 +87,7 @@ input, textarea, select, [contenteditable] {
 /* === Custom cursor === */
 .cursor-dot, .cursor-ring {
   position: fixed; top: 0; left: 0;
-  pointer-events: none; z-index: 9999;
+  pointer-events: none; z-index: 10050;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   mix-blend-mode: screen;
