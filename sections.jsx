@@ -547,9 +547,9 @@ function Sectors() {
       span: 'span-2',
       tag: 'Advocacia · IA + Sistema',
       title: 'Escritórios de advocacia',
-      desc: 'Agente de IA para triagem e atendimento de clientes no WhatsApp, com sistema sob medida em desenvolvimento para a gestão do escritório.',
+      desc: 'Agente de IA para triagem e atendimento de clientes no WhatsApp, integrado a um sistema sob medida para a gestão do escritório.',
       chips: ['Agente de IA', 'Sistema sob medida'],
-      status: 'Em expansão',
+      status: 'Entregue',
     },
     {
       span: 'span-2',
@@ -557,7 +557,7 @@ function Sectors() {
       title: 'Campanhas e mobilização',
       desc: 'Plataforma de gestão de campanha com atendimento por IA no WhatsApp, rede de indicações em vários níveis, análise de sentimento e painéis de acompanhamento em tempo real.',
       chips: ['IA no WhatsApp', 'Rede de indicações', 'Análise de sentimento'],
-      status: 'Em desenvolvimento',
+      status: 'Entregue',
     },
     {
       span: 'span-2',
