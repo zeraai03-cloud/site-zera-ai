@@ -57,13 +57,14 @@ function CustomCursor() {
 }
 
 /* === Particle network background that connects to cursor === */
-function ParticleNetwork({ density = 70, intensity = 1 }) {
+function ParticleNetwork({ density = 32, intensity = 1 }) {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.innerWidth < 820 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = canvas.getContext('2d');
     let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
     let w = 0, h = 0;
@@ -76,13 +77,14 @@ function ParticleNetwork({ density = 70, intensity = 1 }) {
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const target = Math.floor((w * h) / (16000 / (intensity || 1))) + density;
-      particles = Array.from({ length: Math.min(target, 180) }, () => ({
+      const viewportScale = Math.max(0.72, Math.min(1.35, (w * h) / (1440 * 900)));
+      const target = Math.round(density * viewportScale * (intensity || 1));
+      particles = Array.from({ length: Math.min(target, 72) }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.6 + 0.6,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: Math.random() * 1.1 + 0.45,
       }));
     };
 
@@ -96,8 +98,8 @@ function ParticleNetwork({ density = 70, intensity = 1 }) {
       ctx.clearRect(0, 0, w, h);
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
-      const linkDist = 130;
-      const mouseDist = 180;
+      const linkDist = 112;
+      const mouseDist = 150;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -109,12 +111,14 @@ function ParticleNetwork({ density = 70, intensity = 1 }) {
         const ddx = mx - p.x, ddy = my - p.y;
         const dd = Math.sqrt(ddx * ddx + ddy * ddy);
         if (dd < mouseDist) {
-          const f = (1 - dd / mouseDist) * 0.4;
-          p.x += (ddx / dd) * f;
-          p.y += (ddy / dd) * f;
+          const f = (1 - dd / mouseDist) * 0.12;
+          if (dd > 0) {
+            p.x += (ddx / dd) * f;
+            p.y += (ddy / dd) * f;
+          }
         }
 
-        ctx.fillStyle = `rgba(79, 227, 255, ${0.55})`;
+        ctx.fillStyle = `rgba(79, 227, 255, ${0.34})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -125,9 +129,9 @@ function ParticleNetwork({ density = 70, intensity = 1 }) {
           const dx = q.x - p.x, dy = q.y - p.y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < linkDist) {
-            const a = (1 - d / linkDist) * 0.35;
+            const a = (1 - d / linkDist) * 0.14;
             ctx.strokeStyle = `rgba(79, 227, 255, ${a})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = 0.45;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
@@ -136,9 +140,9 @@ function ParticleNetwork({ density = 70, intensity = 1 }) {
         }
         // link to mouse
         if (dd < mouseDist) {
-          const a = (1 - dd / mouseDist) * 0.6;
+          const a = (1 - dd / mouseDist) * 0.28;
           ctx.strokeStyle = `rgba(92, 255, 209, ${a})`;
-          ctx.lineWidth = 0.8;
+          ctx.lineWidth = 0.6;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mx, my);

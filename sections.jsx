@@ -21,19 +21,6 @@ const Ico = {
   globe: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>),
 };
 
-/* ─── Stylized Z mark for hero core ─── */
-function ZMark() {
-  return (
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="6" y="6" width="88" height="88" rx="18" stroke="#4FE3FF" strokeWidth="3" />
-      <path d="M28 28 H72 L28 72 H72" stroke="#0a1628" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-      <circle cx="32" cy="32" r="5" fill="#4FE3FF"/>
-      <circle cx="32" cy="50" r="3" fill="#4FE3FF"/>
-      <circle cx="68" cy="68" r="5" fill="#4FE3FF"/>
-    </svg>
-  );
-}
-
 /* ─── NAV ─── */
 function Nav({ logo }) {
   const [scrolled, setScrolled] = useState(false);
@@ -79,6 +66,142 @@ function Nav({ logo }) {
 }
 
 /* ─── HERO ─── */
+function AutomationConsole() {
+  const scenarios = [
+    {
+      label: 'Atendimento',
+      kicker: 'Lead recebido',
+      title: 'Mariana quer automatizar o suporte',
+      steps: [
+        ['01', 'Entender', 'Intenção identificada'],
+        ['02', 'Qualificar', 'Lead com alta prioridade'],
+        ['03', 'Agir', 'Reunião sugerida'],
+      ],
+      result: 'CRM atualizado e responsável notificado',
+      time: '2,4s',
+      inputs: [['WA', 'WhatsApp'], ['WB', 'Site']],
+      outputs: [['CR', 'CRM'], ['AG', 'Agenda']],
+    },
+    {
+      label: 'Operações',
+      kicker: 'Rotina monitorada',
+      title: 'Uma cobrança venceu sem confirmação',
+      steps: [
+        ['01', 'Detectar', 'Pendência encontrada'],
+        ['02', 'Cruzar', 'Pagamento não localizado'],
+        ['03', 'Resolver', 'Lembrete preparado'],
+      ],
+      result: 'Equipe financeira avisada antes do atraso',
+      time: '1,8s',
+      inputs: [['ER', 'ERP'], ['FN', 'Financeiro']],
+      outputs: [['EM', 'E-mail'], ['DB', 'Dashboard']],
+    },
+    {
+      label: 'Dados',
+      kicker: 'Relatório solicitado',
+      title: 'Resumo comercial da semana',
+      steps: [
+        ['01', 'Coletar', '4 fontes conectadas'],
+        ['02', 'Analisar', 'Padrões encontrados'],
+        ['03', 'Entregar', 'Dashboard atualizado'],
+      ],
+      result: 'Decisão pronta, com dados rastreáveis',
+      time: '3,1s',
+      inputs: [['CR', 'CRM'], ['AP', 'API']],
+      outputs: [['BI', 'Painel BI'], ['RP', 'Relatório']],
+    },
+  ];
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(() => setActive(i => (i + 1) % scenarios.length), 5200);
+    return () => clearInterval(timer);
+  }, [paused]);
+
+  const current = scenarios[active];
+
+  return (
+    <div className="automation-console" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div className="console-glow"/>
+      <header className="console-topbar">
+        <div className="console-brand">
+          <span className="console-mark">Z</span>
+          <div><strong>Zera Flow</strong><small>agente em produção</small></div>
+        </div>
+        <span className="live-status"><i/> Operando</span>
+      </header>
+
+      <div className="console-tabs" role="tablist" aria-label="Exemplos de automação">
+        {scenarios.map((scenario, i) => (
+          <button key={scenario.label} className={active === i ? 'active' : ''} onClick={() => setActive(i)} role="tab" aria-selected={active === i}>
+            {scenario.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="network-stage" key={`network-${active}`}>
+        <div className="network-heading">
+          <span>Ecossistema conectado</span>
+          <small>{current.inputs.length + current.outputs.length} ferramentas · 1 operação</small>
+        </div>
+        <div className="network-map">
+          <div className="tool-stack tool-inputs">
+            {current.inputs.map(([abbr, name], i) => (
+              <div className="tool-chip" key={name} style={{ '--tool-delay': `${i * 120}ms` }}>
+                <i>{abbr}</i><span>{name}</span>
+              </div>
+            ))}
+          </div>
+          <div className="network-rail rail-in"><i/></div>
+          <div className="orchestration-core">
+            <span>Z</span><strong>IA Zera</strong><small>orquestrando</small>
+          </div>
+          <div className="network-rail rail-out"><i/></div>
+          <div className="tool-stack tool-outputs">
+            {current.outputs.map(([abbr, name], i) => (
+              <div className="tool-chip" key={name} style={{ '--tool-delay': `${(i + 1) * 120}ms` }}>
+                <i>{abbr}</i><span>{name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="console-body" key={active}>
+        <div className="console-request">
+          <div className="request-meta"><span>{current.kicker}</span><b>agora</b></div>
+          <p>{current.title}</p>
+        </div>
+
+        <div className="automation-flow">
+          {current.steps.map(([n, title, detail], i) => (
+            <React.Fragment key={n}>
+              <div className="flow-step" style={{ '--step-delay': `${i * 180}ms` }}>
+                <span className="step-number">{n}</span>
+                <div><strong>{title}</strong><small>{detail}</small></div>
+                <i className="step-check">✓</i>
+              </div>
+              {i < current.steps.length - 1 && <div className="flow-line"><i/></div>}
+            </React.Fragment>
+          ))}
+        </div>
+
+        <div className="console-result">
+          <div className="result-icon">✓</div>
+          <div><small>Ação concluída em {current.time}</small><strong>{current.result}</strong></div>
+        </div>
+      </div>
+
+      <footer className="console-footer">
+        <span><i className="footer-dot"/> Humano no controle</span>
+        <span>Dados protegidos</span>
+      </footer>
+    </div>
+  );
+}
+
 function Hero() {
   const visualRef = useRef(null);
 
@@ -135,28 +258,7 @@ function Hero() {
 
         <div ref={visualRef} style={{ transition: 'transform .35s ease-out' }}>
           <Reveal delay={300}>
-            <div className="hero-visual">
-              <div className="ring"/>
-              <div className="ring r2"/>
-              <div className="ring r3"/>
-              <svg className="data-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="dl" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#4FE3FF" stopOpacity="0.6"/>
-                    <stop offset="1" stopColor="#5cffd1" stopOpacity="0"/>
-                  </linearGradient>
-                </defs>
-                <path d="M50 6 L50 50" stroke="url(#dl)" strokeWidth="0.4" fill="none" strokeDasharray="2 2"/>
-                <path d="M94 50 L50 50" stroke="url(#dl)" strokeWidth="0.4" fill="none" strokeDasharray="2 2"/>
-                <path d="M50 94 L50 50" stroke="url(#dl)" strokeWidth="0.4" fill="none" strokeDasharray="2 2"/>
-                <path d="M6 50 L50 50" stroke="url(#dl)" strokeWidth="0.4" fill="none" strokeDasharray="2 2"/>
-              </svg>
-              <div className="satellite sat-1">API</div>
-              <div className="satellite sat-2">CRM</div>
-              <div className="satellite sat-3">DB</div>
-              <div className="satellite sat-4">LLM</div>
-              <div className="core"><ZMark/></div>
-            </div>
+            <AutomationConsole/>
           </Reveal>
         </div>
       </div>
@@ -560,7 +662,7 @@ function FAQ() {
 
 /* ─── CONTATO ─── */
 function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', company: '', service: '', budget: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', company: '', service: '', budget: '', message: '', privacy: false });
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -585,6 +687,7 @@ function Contact() {
     else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) e.email = 'E-mail inválido';
     if (!form.service) e.service = 'Escolha uma opção';
     if (!form.message.trim() || form.message.trim().length < 10) e.message = 'Conte um pouco mais (mín. 10 caracteres)';
+    if (!form.privacy) e.privacy = 'Confirme que leu o aviso de privacidade';
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -631,7 +734,7 @@ function Contact() {
   };
 
   const upd = (k) => (e) => {
-    setForm(f => ({ ...f, [k]: e.target.value }));
+    setForm(f => ({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
     if (errors[k]) setErrors(er => ({ ...er, [k]: undefined }));
   };
 
@@ -677,7 +780,7 @@ function Contact() {
                   <a className="btn btn-primary" href={buildWhatsappUrl()} target="_blank" rel="noopener noreferrer">
                     Abrir WhatsApp {Ico.arrow}
                   </a>
-                  <button className="btn btn-ghost" onClick={() => { setSent(false); setForm({ name:'', email:'', company:'', service:'', budget:'', message:'' }); }}>
+                  <button className="btn btn-ghost" onClick={() => { setSent(false); setForm({ name:'', email:'', company:'', service:'', budget:'', message:'', privacy:false }); }}>
                     Enviar outra mensagem
                   </button>
                 </div>
@@ -732,6 +835,14 @@ function Contact() {
                     {errors.message && <div className="err-msg">{errors.message}</div>}
                   </div>
 
+                  <div className={`privacy-consent ${errors.privacy ? 'error' : ''}`}>
+                    <label>
+                      <input type="checkbox" checked={form.privacy} onChange={upd('privacy')} />
+                      <span>Li a <a href="#privacidade">Política de Privacidade</a> e estou ciente de que meus dados serão usados para responder a esta solicitação pelo WhatsApp.</span>
+                    </label>
+                    {errors.privacy && <div className="err-msg">{errors.privacy}</div>}
+                  </div>
+
                   <Magnetic strength={0.2}>
                     <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', justifyContent: 'center', marginTop: 8 }}>
                       {loading ? 'Preparando...' : <>Enviar via WhatsApp {Ico.arrow}</>}
@@ -761,10 +872,86 @@ function Footer({ logo }) {
           <a href="#servicos">Serviços</a>
           <a href="#setores">Setores</a>
           <a href="#contato">Contato</a>
+          <a href="#privacidade">Privacidade</a>
         </div>
       </div>
     </footer>
   );
 }
 
-Object.assign(window, { Nav, Hero, Services, Products, About, Tech, Sectors, FAQ, Contact, Footer, Ico });
+function PrivacyPolicy({ onClose }) {
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    document.body.classList.add('modal-open');
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.classList.remove('modal-open');
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <div className="privacy-overlay" role="dialog" aria-modal="true" aria-labelledby="privacy-title" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <article className="privacy-modal">
+        <div className="privacy-head">
+          <div>
+            <span className="eyebrow"><span className="dot"/>Transparência e LGPD</span>
+            <h2 id="privacy-title">Política de Privacidade</h2>
+            <p>Última atualização: 3 de agosto de 2026</p>
+          </div>
+          <button className="privacy-close" onClick={onClose} aria-label="Fechar Política de Privacidade">×</button>
+        </div>
+
+        <div className="privacy-content">
+          <p>A Zera AI Solution's respeita sua privacidade. Esta política explica, de forma clara, como tratamos dados pessoais quando você visita este site ou entra em contato conosco.</p>
+
+          <section>
+            <h3>1. Quem é responsável pelos dados</h3>
+            <p>A controladora dos dados é a Zera AI Solution's. Dúvidas ou pedidos relacionados à privacidade podem ser enviados para <a href="mailto:zeraai03@gmail.com">zeraai03@gmail.com</a> ou pelo WhatsApp <a href="https://wa.me/5561999117557" target="_blank" rel="noopener noreferrer">+55 (61) 99911-7557</a>.</p>
+          </section>
+
+          <section>
+            <h3>2. Quais dados tratamos</h3>
+            <p>Quando você preenche o formulário, podemos tratar nome, e-mail, empresa, serviço de interesse, faixa de investimento e a mensagem que você escrever. Informações técnicas básicas, como endereço IP, navegador e registros de acesso, também podem ser processadas pela hospedagem e pelos serviços necessários para exibir o site.</p>
+          </section>
+
+          <section>
+            <h3>3. Para que usamos os dados</h3>
+            <p>Usamos essas informações para responder ao contato, entender sua necessidade, preparar propostas, dar continuidade a uma possível relação comercial, manter a segurança do site e cumprir obrigações legais. Não vendemos seus dados pessoais.</p>
+          </section>
+
+          <section>
+            <h3>4. Compartilhamento e serviços externos</h3>
+            <p>O formulário prepara uma mensagem e a abre no WhatsApp; o envio só ocorre quando você confirma dentro do aplicativo. Nesse momento, os dados passam a ser tratados também pela Meta/WhatsApp conforme as regras desse serviço. O site utiliza provedores de hospedagem, entrega de conteúdo e fontes web, que podem processar dados técnicos estritamente necessários à operação.</p>
+          </section>
+
+          <section>
+            <h3>5. Cookies</h3>
+            <p>Atualmente, este site não utiliza cookies de publicidade, rastreamento comportamental ou ferramentas próprias de análise. Se isso mudar, esta política será atualizada e, quando necessário, exibiremos opções de consentimento.</p>
+          </section>
+
+          <section>
+            <h3>6. Por quanto tempo guardamos os dados</h3>
+            <p>Conservamos os dados somente pelo período necessário para atender à solicitação, conduzir a relação comercial e cumprir obrigações legais ou regulatórias. Depois disso, eles são eliminados ou anonimizados quando aplicável.</p>
+          </section>
+
+          <section>
+            <h3>7. Seus direitos</h3>
+            <p>Nos termos da LGPD, você pode solicitar confirmação e acesso aos dados, correção, informação sobre compartilhamentos, anonimização, bloqueio ou eliminação quando cabível, portabilidade, oposição e revogação do consentimento. Para exercer um direito, use os canais informados no item 1. Poderemos pedir informações para confirmar sua identidade e proteger seus dados.</p>
+          </section>
+
+          <section>
+            <h3>8. Segurança e alterações</h3>
+            <p>Adotamos medidas razoáveis para proteger os dados contra acesso, perda, alteração ou divulgação indevida. Esta política pode ser atualizada para refletir mudanças no site ou na legislação; a data da versão mais recente será sempre indicada no início.</p>
+          </section>
+        </div>
+
+        <div className="privacy-actions">
+          <button className="btn btn-primary" onClick={onClose}>Entendi</button>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+Object.assign(window, { Nav, Hero, Services, Products, About, Tech, Sectors, FAQ, Contact, Footer, PrivacyPolicy, Ico });
