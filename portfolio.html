@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfólio Zera AI Solutions | Zera AI Solutions</title>
+<meta name="description" content="Sites e plataformas construidos pela Zera AI Solutions. 20 projetos publicados, com link direto para cada um em funcionamento.">
+<link rel="canonical" href="https://zeraai.com.br/portfolio.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Portfolio | Zera AI Solutions">
+<meta property="og:description" content="20 sites e plataformas publicados. Cada endereco abre o produto em funcionamento.">
+<meta property="og:url" content="https://zeraai.com.br/portfolio.html">
+<meta property="og:image" content="https://zeraai.com.br/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --ground:   #050b16;
+    --surface:  #0a1628;
+    --raised:   #0f2540;
+    --line:     rgba(94, 198, 240, 0.16);
+    --line-soft:rgba(94, 198, 240, 0.08);
+    --accent:   #1ec6f0;
+    --accent-hi:#4fe3ff;
+    --mint:     #5cffd1;
+    --text:     #e8f4ff;
+    --muted:    #8aa3bd;
+    --dim:      #5a7493;
+    --chip-bg:  rgba(30, 198, 240, 0.10);
+    --grid:     rgba(94, 198, 240, 0.05);
+    --shadow:   0 1px 0 rgba(255,255,255,0.03) inset, 0 18px 40px -28px rgba(0,0,0,0.9);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground:   #f3f7fb;
+      --surface:  #ffffff;
+      --raised:   #eaf2f8;
+      --line:     rgba(11, 60, 92, 0.16);
+      --line-soft:rgba(11, 60, 92, 0.08);
+      --accent:   #0b7fa8;
+      --accent-hi:#096b8f;
+      --mint:     #0d8f70;
+      --text:     #0a1628;
+      --muted:    #4b6a86;
+      --dim:      #7491ab;
+      --chip-bg:  rgba(11, 127, 168, 0.09);
+      --grid:     rgba(11, 60, 92, 0.05);
+      --shadow:   0 1px 0 rgba(255,255,255,0.7) inset, 0 12px 28px -22px rgba(10,22,40,0.5);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --ground:#f3f7fb; --surface:#ffffff; --raised:#eaf2f8;
+    --line:rgba(11,60,92,0.16); --line-soft:rgba(11,60,92,0.08);
+    --accent:#0b7fa8; --accent-hi:#096b8f; --mint:#0d8f70;
+    --text:#0a1628; --muted:#4b6a86; --dim:#7491ab;
+    --chip-bg:rgba(11,127,168,0.09); --grid:rgba(11,60,92,0.05);
+    --shadow:0 1px 0 rgba(255,255,255,0.7) inset, 0 12px 28px -22px rgba(10,22,40,0.5);
+  }
+  :root[data-theme="dark"] {
+    --ground:#050b16; --surface:#0a1628; --raised:#0f2540;
+    --line:rgba(94,198,240,0.16); --line-soft:rgba(94,198,240,0.08);
+    --accent:#1ec6f0; --accent-hi:#4fe3ff; --mint:#5cffd1;
+    --text:#e8f4ff; --muted:#8aa3bd; --dim:#5a7493;
+    --chip-bg:rgba(30,198,240,0.10); --grid:rgba(94,198,240,0.05);
+    --shadow:0 1px 0 rgba(255,255,255,0.03) inset, 0 18px 40px -28px rgba(0,0,0,0.9);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--ground);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px, 56px 56px;
+    color: var(--text);
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  /* ---------- cabeçalho ---------- */
+  .eyebrow {
+    font-family: ui-monospace, 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.06; margin: 0 0 16px;
+    font-weight: 700; letter-spacing: -0.025em; text-wrap: balance;
+  }
+  .lede { font-size: 1.06rem; color: var(--muted); max-width: 60ch; margin: 0; }
+
+  .stats {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px;
+    padding-top: 26px; border-top: 1px solid var(--line);
+  }
+  .stat {
+    flex: 1 1 150px; background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow);
+  }
+  .stat b {
+    display: block;
+    font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+    font-size: 1.7rem; font-weight: 600; line-height: 1.1;
+    font-variant-numeric: tabular-nums; color: var(--accent);
+  }
+  .stat span { font-size: 12px; color: var(--dim); letter-spacing: 0.04em; }
+
+  /* ---------- seções ---------- */
+  section { margin-top: 56px; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 14px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 22px;
+  }
+  .sec-head h2 { font-size: 1.32rem; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+  .sec-head .count {
+    font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+    font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums;
+  }
+  .sec-head p { margin: 0 0 0 auto; font-size: 13px; color: var(--dim); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line-soft); border-radius: 14px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 10px;
+    box-shadow: var(--shadow); transition: border-color .18s ease, transform .18s ease;
+  }
+  .card:hover { border-color: var(--line); transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+
+  .card-top { display: flex; align-items: flex-start; gap: 10px; }
+  .card h3 { margin: 0; font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; flex: 1; }
+  .card p { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+  .pill {
+    font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap; border: 1px solid;
+  }
+  .pill.no-ar   { color: var(--mint);   border-color: color-mix(in srgb, var(--mint) 40%, transparent);
+                  background: color-mix(in srgb, var(--mint) 12%, transparent); }
+  .pill.dev     { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+                  background: var(--chip-bg); }
+  .pill.pausado { color: var(--dim);    border-color: var(--line); background: transparent; }
+
+  .url {
+    font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+    font-size: 12px; color: var(--accent); text-decoration: none;
+    word-break: break-all; border-bottom: 1px solid transparent; align-self: flex-start;
+  }
+  .url:hover, .url:focus-visible { color: var(--accent-hi); border-bottom-color: currentColor; }
+  .url:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .tag {
+    font-size: 10.5px; letter-spacing: 0.03em; color: var(--dim);
+    background: var(--chip-bg); border-radius: 5px; padding: 2px 7px;
+  }
+
+  footer {
+    margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--dim); display: flex; flex-wrap: wrap; gap: 8px 18px;
+  }
+  footer b { color: var(--muted); font-weight: 500; }
+</style>
+<style>
+  .voltar {
+    display:inline-flex; align-items:center; gap:6px; margin-bottom:26px;
+    font-family: ui-monospace,'JetBrains Mono',Consolas,monospace;
+    font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); text-decoration:none;
+    border:1px solid var(--line); border-radius:999px; padding:6px 14px;
+    transition:color .18s ease, border-color .18s ease;
+  }
+  .voltar:hover, .voltar:focus-visible { color:var(--accent); border-color:var(--accent); }
+  .voltar:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <a class="voltar" href="/">&larr; Voltar ao site</a>
+
+
+  <header>
+    <p class="eyebrow">Portfólio · Atualizado em 07 de agosto de 2026</p>
+    <h1>Sites e plataformas construídos pela Zera AI Solutions</h1>
+    <p class="lede">
+      Cada projeto abaixo está publicado e acessível. Os endereços são links reais —
+      clique para abrir o produto em funcionamento, não uma imagem dele.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>20</b><span>projetos publicados</span></div>
+      <div class="stat"><b>8</b><span>sites institucionais</span></div>
+      <div class="stat"><b>12</b><span>plataformas e sistemas</span></div>
+      <div class="stat"><b>9</b><span>com domínio próprio</span></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>Sites institucionais e landing pages</h2>
+      <span class="count">08</span>
+      <p>Presença digital, captação e apresentação</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-top"><h3>Zera AI Solutions</h3><span class="pill no-ar">No ar</span></div>
+        <p>Site institucional da própria Zera: automação inteligente, agentes de IA e sistemas sob medida para empresas.</p>
+        <a class="url" href="https://zeraai.com.br" target="_blank" rel="noopener">zeraai.com.br</a>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>BESKEL</h3><span class="pill no-ar">No ar</span></div>
+        <p>Engenharia criativa e impressão 3D em Brasília. Site de apresentação com portfólio de peças e captação por WhatsApp.</p>
+        <a class="url" href="https://beskel.com.br" target="_blank" rel="noopener">beskel.com.br</a>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>SCAR Shalom Contabilidade</h3><span class="pill no-ar">No ar</span></div>
+        <p>Escritório de contabilidade. Site institucional com apresentação de serviços e captação de clientes.</p>
+        <a class="url" href="https://scarassessoria.com.br" target="_blank" rel="noopener">scarassessoria.com.br</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Val Notícias</h3><span class="pill no-ar">No ar</span></div>
+        <p>Portal de notícias do Entorno do Distrito Federal, com publicação de matérias e navegação otimizada para celular.</p>
+        <a class="url" href="https://site-val-noticias.vercel.app" target="_blank" rel="noopener">site-val-noticias.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Pet Gold</h3><span class="pill no-ar">No ar</span></div>
+        <p>Site institucional de pet shop premium, com serviços, galeria e contato direto por WhatsApp.</p>
+        <a class="url" href="https://site-petgold.vercel.app" target="_blank" rel="noopener">site-petgold.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>DYNAMIS</h3><span class="pill no-ar">No ar</span></div>
+        <p>Consultoria em prevenção de lesões por esforço repetitivo, com site publicado em francês para atendimento internacional.</p>
+        <a class="url" href="https://site-dynamis.vercel.app" target="_blank" rel="noopener">site-dynamis.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>A Mesa · Projeto Rute</h3><span class="pill no-ar">No ar</span></div>
+        <p>Landing page do curso “Restaurando o Altar da Família”, com inscrição e conversão direta por WhatsApp.</p>
+        <a class="url" href="https://projeto-rute.vercel.app" target="_blank" rel="noopener">projeto-rute.vercel.app</a>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Glauberson Gomes · Corretor</h3><span class="pill no-ar">No ar</span></div>
+        <p>Site de corretor de imóveis em Brasília, com vitrine de propriedades e contato direto, gerado a partir do sistema de gestão.</p>
+        <a class="url" href="https://glaubersongomescorretor.com.br" target="_blank" rel="noopener">glaubersongomescorretor.com.br</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">Tailwind</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Plataformas e sistemas de gestão</h2>
+      <span class="count">12</span>
+      <p>Produtos com login, banco de dados e operação real</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-top"><h3>Zera Admin</h3><span class="pill no-ar">No ar</span></div>
+        <p>Central de operação da Zera: CRM, clientes, propostas, contratos, financeiro, auditoria e gestão dos agentes de IA.</p>
+        <a class="url" href="https://admin.zeraai.com.br" target="_blank" rel="noopener">admin.zeraai.com.br</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">IA</span><span class="tag">WhatsApp</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Ekklesia</h3><span class="pill no-ar">No ar</span></div>
+        <p>Plataforma de gestão para igrejas: membros, células, agenda pastoral, financeiro e assistente no WhatsApp.</p>
+        <a class="url" href="https://www.ekklesiaapp.com.br" target="_blank" rel="noopener">ekklesiaapp.com.br</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">IA</span><span class="tag">Asaas</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>BarberOS</h3><span class="pill no-ar">No ar</span></div>
+        <p>Sistema de gestão para barbearias: agendamento, comandas, profissionais, cobrança recorrente e relatórios.</p>
+        <a class="url" href="https://www.sistemabarberos.com.br" target="_blank" rel="noopener">sistemabarberos.com.br</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">Asaas</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Prospera</h3><span class="pill no-ar">No ar</span></div>
+        <p>Controle financeiro pessoal e familiar: contas, cartões, faturas detalhadas, metas e leitura automática de gastos.</p>
+        <a class="url" href="https://www.sistemaprospera.com.br" target="_blank" rel="noopener">sistemaprospera.com.br</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">IA</span><span class="tag">WhatsApp</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>ContaFlow · Shalom</h3><span class="pill no-ar">No ar</span></div>
+        <p>CRM para escritórios de contabilidade, com atendimento por agente de IA no WhatsApp e consulta automática de CNPJ.</p>
+        <a class="url" href="https://sistema.scarassessoria.com.br" target="_blank" rel="noopener">sistema.scarassessoria.com.br</a>
+        <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Supabase</span><span class="tag">IA</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Campanha Inteligente</h3><span class="pill no-ar">No ar</span></div>
+        <p>Plataforma para campanhas eleitorais: base de eleitores, dados do TSE, disparos segmentados e painel de resultados.</p>
+        <a class="url" href="https://campanha-ia.vercel.app" target="_blank" rel="noopener">campanha-ia.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">IA</span><span class="tag">TSE</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Zera Jurídico</h3><span class="pill no-ar">No ar</span></div>
+        <p>Plataforma white-label de gestão e automação por IA para escritórios de advocacia, com geração assistida de documentos.</p>
+        <a class="url" href="https://zera-juridico.vercel.app" target="_blank" rel="noopener">zera-juridico.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">IA</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Grupo Capital CRM</h3><span class="pill no-ar">No ar</span></div>
+        <p>CRM comercial com funil de negociação, importação de carteira e atendimento integrado ao WhatsApp.</p>
+        <a class="url" href="https://grupo-capital.vercel.app" target="_blank" rel="noopener">grupo-capital.vercel.app</a>
+        <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Supabase</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Hersen Mendes</h3><span class="pill no-ar">No ar</span></div>
+        <p>Sistema de gestão sob medida, com cadastro de clientes, acompanhamento de demandas e relatórios.</p>
+        <a class="url" href="https://hersen-system.vercel.app" target="_blank" rel="noopener">hersen-system.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>PetWise</h3><span class="pill no-ar">No ar</span></div>
+        <p>Gestão para pet shops e clínicas veterinárias: agenda, tutores, animais, serviços e controle operacional.</p>
+        <a class="url" href="https://petos.vercel.app" target="_blank" rel="noopener">petos.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Dynamis Intelligence</h3><span class="pill no-ar">No ar</span></div>
+        <p>Central de performance com indicadores e acompanhamento de resultados, construída para demonstração ao cliente.</p>
+        <a class="url" href="https://dynamis-intelligence-demo.vercel.app" target="_blank" rel="noopener">dynamis-intelligence-demo.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Zera Estudos</h3><span class="pill no-ar">No ar</span></div>
+        <p>Plataforma de estudos e preparação para certificações, com trilhas de conteúdo e acompanhamento de progresso.</p>
+        <a class="url" href="https://zera-estudos.vercel.app" target="_blank" rel="noopener">zera-estudos.vercel.app</a>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">Tailwind</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <span><b>Zera AI Solutions</b> · Brasília, DF</span>
+    <span>Todos os endereços verificados em 07/08/2026</span>
+    <span>zeraai.com.br</span>
+  </footer>
+
+</div>
+</body>
+</html>
